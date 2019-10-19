@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
     acc = nn.KNN_test(knn2X,knn2Y,knn1X,knn1Y,9)
     #print(acc)
-    #print(nn.choose_K(knn2X,knn2Y,knn1X,knn1Y))
+    print(nn.choose_K(knn2X,knn2Y,knn1X,knn1Y))
 
     X = np.array([[0, 1], [1, 0], [5, 4], [1, 1], [3, 3], [2, 4], [1, 6]])
     Y = np.array([[1], [1], [0], [1], [0], [0], [0]])
