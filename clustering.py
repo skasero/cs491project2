@@ -14,7 +14,6 @@ import copy
 # @return cluster_centers A list of (float) cluster centers
 #
 def K_Means(X,K):
-
 	# set up an array for cluster centers (grabs a random sample's features)
 	cluster_centers = []
 	# Seed the random number generator for cluster center initialization
@@ -85,7 +84,6 @@ def K_Means_better(X,K):
 	found_majority = False
 	sigma = .005
 	best_model = []
-
 
 	while iteration_number < MAX_ITERATIONS and not found_majority:
 		current_model = K_Means(X,K).tolist()
