@@ -2,7 +2,7 @@
 # @Author: Chris Peterson
 # @Date:   2019-10-17 16:52:38
 # @Last Modified by:   Chris Peterson
-# @Last Modified time: 2019-10-19 11:31:40
+# @Last Modified time: 2019-10-19 11:36:25
 import numpy as np
 import random as rand
 import copy
@@ -88,10 +88,11 @@ def K_Means_better(X,K):
 	models = []
 	model_votes = []
 	cluster_centers = []
+	MIN_ITERATIONS = 500
 	MAX_ITERATIONS = 1000
 	iteration_number = 0
 	found_majority = False
-	sigma = .05
+	sigma = .005
 	best_model = []
 
 
@@ -114,7 +115,7 @@ def K_Means_better(X,K):
 			if closest_match[1] < sigma:
 				index = models.index(closest_match[0])
 				model_votes[index] = model_votes[index] + 1
-				if model_votes[index]/(iteration_number+1) > 0.5:
+				if (model_votes[index]/(iteration_number+1) > 0.5) and iteration_number > MIN_ITERATIONS :
 					found_majority = True
 
 			else:
