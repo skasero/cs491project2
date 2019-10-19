@@ -2,7 +2,7 @@
 # @Author: Chris Peterson
 # @Date:   2019-10-17 16:52:38
 # @Last Modified by:   Chris Peterson
-# @Last Modified time: 2019-10-19 11:24:48
+# @Last Modified time: 2019-10-19 11:31:40
 import numpy as np
 import random as rand
 import copy
@@ -115,7 +115,7 @@ def K_Means_better(X,K):
 				index = models.index(closest_match[0])
 				model_votes[index] = model_votes[index] + 1
 				if model_votes[index]/(iteration_number+1) > 0.5:
-				found_majority = True
+					found_majority = True
 
 			else:
 				models.append(current_model)
