@@ -17,8 +17,6 @@ def K_Means(X,K):
 
 	# set up an array for cluster centers (grabs a random sample's features)
 	cluster_centers = []
-
-
 	# Seed the random number generator for cluster center initialization
 	rand.seed()
 
@@ -40,7 +38,6 @@ def K_Means(X,K):
 	# To make assignment easier later, we initial the array with K empty lists for this
 	clusters = [[] for i in range(0,K)]
 	
-
 	#######################
 	#                     #
 	# Main algorithm loop #
@@ -65,11 +62,11 @@ def K_Means(X,K):
 					cluster_centers[i] = np.mean(clusters[i], axis=0, dtype=float)
 				# else: Points could be reassigned to the empty cluster later. Lets keep the center
 					
-					
 			clusters_previous = copy.deepcopy(clusters)
 			clusters = [[] for i in range(0,K)]
-	return np.array(cluster_centers)
-		
+	cluster_centers = np.array(cluster_centers)
+	cluster_centers = cluster_centers[np.argsort(cluster_centers[:,0])] 
+	return cluster_centers
 
 #
 # K_Means_better(X,K)
@@ -92,9 +89,7 @@ def K_Means_better(X,K):
 
 	while iteration_number < MAX_ITERATIONS and not found_majority:
 		current_model = K_Means(X,K).tolist()
-
 		closest_match = [[], float("inf")]
-
 
 		if current_model in models:
 			index = models.index(current_model)
@@ -112,11 +107,9 @@ def K_Means_better(X,K):
 				model_votes[index] = model_votes[index] + 1
 				if (model_votes[index]/(iteration_number+1) > 0.5) and iteration_number > MIN_ITERATIONS :
 					found_majority = True
-
 			else:
 				models.append(current_model)
 				model_votes.append(1)
-
 
 		iteration_number = iteration_number + 1
 
@@ -124,6 +117,4 @@ def K_Means_better(X,K):
 		best_index = model_votes.index(max(model_votes))
 		best_model = models[best_index]
 
-	return np.array(best_model)
-
-		
+	return best_model
