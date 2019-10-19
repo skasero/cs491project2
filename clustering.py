@@ -2,7 +2,7 @@
 # @Author: Chris Peterson
 # @Date:   2019-10-17 16:52:38
 # @Last Modified by:   Chris Peterson
-# @Last Modified time: 2019-10-19 13:51:14
+# @Last Modified time: 2019-10-19 14:02:39
 import numpy as np
 import random as rand
 import copy
@@ -99,7 +99,7 @@ def K_Means_better(X,K):
 		if current_model in models:
 			index = models.index(current_model)
 			model_votes[index] = model_votes[index] + 1
-			if model_votes[index]/(iteration_number+1) > 0.5:
+			if (model_votes[index]/(iteration_number+1) > 0.5) and iteration_number > MIN_ITERATIONS:
 				found_majority = True
 				best_model = current_model
 		else:
