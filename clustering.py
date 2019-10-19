@@ -2,7 +2,7 @@
 # @Author: Chris Peterson
 # @Date:   2019-10-17 16:52:38
 # @Last Modified by:   Chris Peterson
-# @Last Modified time: 2019-10-19 02:20:25
+# @Last Modified time: 2019-10-19 11:24:48
 import numpy as np
 import random as rand
 import copy
@@ -88,14 +88,14 @@ def K_Means_better(X,K):
 	models = []
 	model_votes = []
 	cluster_centers = []
-	MIN_ITERATIONS = 1000
-	MAX_ITERATIONS = 10000
+	MAX_ITERATIONS = 1000
 	iteration_number = 0
 	found_majority = False
 	sigma = .05
+	best_model = []
 
 
-	while iteration_number < MIN_ITERATIONS:
+	while iteration_number < MAX_ITERATIONS and not found_majority:
 		current_model = K_Means(X,K)
 		closest_match = [[], float("inf")]
 
@@ -103,6 +103,9 @@ def K_Means_better(X,K):
 		if current_model in models:
 			index = models.index(current_model)
 			model_votes[index] = model_votes[index] + 1
+			if model_votes[index]/(iteration_number+1) > 0.5:
+				found_majority = True
+				best_model = current_model
 		else:
 			for model in models:
 				difference = np.linalg.norm(np.subtract(model,current_model))
@@ -111,6 +114,8 @@ def K_Means_better(X,K):
 			if closest_match[1] < sigma:
 				index = models.index(closest_match[0])
 				model_votes[index] = model_votes[index] + 1
+				if model_votes[index]/(iteration_number+1) > 0.5:
+				found_majority = True
 
 			else:
 				models.append(current_model)
@@ -118,4 +123,11 @@ def K_Means_better(X,K):
 
 
 		iteration_number = iteration_number + 1
+
+	if not found_majority:
+		best_index = model_votes.index(max(model_votes))
+		best_model = models[best_index]
+
+	return best_model
+
 		
