@@ -2,7 +2,7 @@
 # @Author: Chris Peterson
 # @Date:   2019-10-17 16:52:38
 # @Last Modified by:   Chris Peterson
-# @Last Modified time: 2019-10-19 13:48:47
+# @Last Modified time: 2019-10-19 13:51:14
 import numpy as np
 import random as rand
 import copy
@@ -28,7 +28,6 @@ def K_Means(X,K):
 		center = X[i].tolist()
 		if center not in cluster_centers:
 			cluster_centers.append(center)
-	# print(cluster_centers)
 	#Flag to determine if main algorithm has converged
 	converged = False
 
@@ -52,7 +51,6 @@ def K_Means(X,K):
 			best_info = [-1,float("inf")]
 			for j in range(0,len(cluster_centers)):
 				distance = np.linalg.norm(np.subtract(cluster_centers[j],X[i])).tolist()
-				# print(distance)
 				if distance < best_info[1]:
 					best_info = [j,distance]
 			clusters[best_info[0]].append(X[i].tolist())
