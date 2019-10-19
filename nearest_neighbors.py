@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 import numpy as np
 
 def KNN_test(X_train,Y_train,X_test,Y_test,K):
@@ -11,21 +10,20 @@ def KNN_test(X_train,Y_train,X_test,Y_test,K):
         for j in range(0,len(Y_train)):
             neighbors.append([j,np.linalg.norm(X_test[i]-X_train[j])])
         neighbors = np.array(neighbors) # Needed to convert list to np.array for sorting
-        # print(neighbors)
         neighbors = neighbors[np.argsort(neighbors[:,1])] # Sort on column 1
-        # print(neighbors)
 
         sum = 0
         for k in range(0,K):
             index = int(neighbors[k,0])
             sum += Y_train[index,0]
         
-        # Handle for the case where the sum is 0 on even K values
+        # Handle for the case where the sum is 0 on even K values. 
         if(sum != 0):
             sum /= abs(sum) # this is fix a value such as -3 to a -1 value
 
         if(sum == Y_test[i,0]):
             totalCorrect += 1
+        # print("{}  {}".format(i,sum))
     return totalCorrect/totalCount
 
 def choose_K(X_train,Y_train,X_val,Y_val):

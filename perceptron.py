@@ -9,8 +9,8 @@ def perceptron_train(X,Y):
     index = 0
     countToEpoch = 0
     epoch = len(Y)
-    w = X[index]*Y[index]
-    b = Y[index]
+    w = [0] * len(X[0]) # Creating a list of [0] * number of features
+    b = 0 # Starts as 0
     
     while(countToEpoch != epoch-1):
         a = (np.dot(w,X[index])+b)*Y[index]
@@ -35,6 +35,6 @@ def perceptron_test(X_test, Y_test, w, b):
         if(y != 0):
             y /= abs(y)
         
-        if(Y_test[i] <= y):
+        if(y == Y_test[i]):
             totalCorrect += 1
-    return totalCorrect/totalCount
+    return totalCorrect/totalCount 
