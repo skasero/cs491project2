@@ -2,7 +2,7 @@
 # @Author: Chris Peterson
 # @Date:   2019-10-17 16:52:38
 # @Last Modified by:   Chris Peterson
-# @Last Modified time: 2019-10-19 13:17:28
+# @Last Modified time: 2019-10-19 13:48:47
 import numpy as np
 import random as rand
 import copy
@@ -64,8 +64,6 @@ def K_Means(X,K):
 			# Recompute cluster centers
 			for i in range(0, len(cluster_centers)):
 				if not np.array_equal(clusters[i], []):
-					print("Cluster i: ", clusters[i])
-					print("Mean: ", np.mean(clusters[i], axis=0, dtype=float))
 					cluster_centers[i] = np.mean(clusters[i], axis=0, dtype=float)
 				# else: Points could be reassigned to the empty cluster later. Lets keep the center
 					
@@ -95,8 +93,7 @@ def K_Means_better(X,K):
 
 
 	while iteration_number < MAX_ITERATIONS and not found_majority:
-		current_model = K_Means(X,K)
-		current_model = current_model.tolist()
+		current_model = K_Means(X,K).tolist()
 
 		closest_match = [[], float("inf")]
 
@@ -109,7 +106,7 @@ def K_Means_better(X,K):
 				best_model = current_model
 		else:
 			for model in models:
-				difference = np.linalg.norm(np.subtract(model,current_model))
+				difference = np.linalg.norm(np.subtract(model,current_model)).tolist()
 				if difference < closest_match[1]:
 					closest_match = [model, difference]
 			if closest_match[1] < sigma:
@@ -129,6 +126,6 @@ def K_Means_better(X,K):
 		best_index = model_votes.index(max(model_votes))
 		best_model = models[best_index]
 
-	return best_model
+	return np.array(best_model)
 
 		
